@@ -2,31 +2,42 @@ services:
   auth_ms:
     build: .
     ports:
-      - "8000:8000"
+      - "8080:8080"
+    env_file: .env
     environment:
       JWT_SECRET: ${JWT_SECRET}
+      DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       KTOR_REALM: ${KTOR_REALM}
     networks:
       - backend
     depends_on:
-        - db
+      db:
+        condition: service_healthy
+    restart: on-failure
 
   db:
     image: postgres:15
     restart: always
     environment:
       POSTGRES_DB: authdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - auth-pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d authdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
 volumes:
-  pgdata:
+  auth-pgdata:
 
 networks:
   backend:
