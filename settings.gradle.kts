@@ -1,1 +1,1 @@
-rootProject.name = "recipeusers"
+rootProject.name = "AuthMS"

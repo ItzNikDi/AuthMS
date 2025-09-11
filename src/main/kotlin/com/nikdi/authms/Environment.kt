@@ -1,4 +1,4 @@
-package com.nikdi
+package com.nikdi.authms
 
 import io.github.cdimascio.dotenv.dotenv
 
