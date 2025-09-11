@@ -14,7 +14,7 @@ const val REALM_ENV = "KTOR_REALM"
 object JwtProvider {
     private val secret = Environment[JWT_ENV] ?: error("$JWT_ENV not set in .env!")
     private val issuer = Environment[ISSUER_ENV] ?: error("$ISSUER_ENV not set in .env!")
-    val realm = Environment[REALM_ENV] ?: error("$REALM_ENV not set in .env")
+    val realm = Environment[REALM_ENV] ?: error("$REALM_ENV not set in .env!")
 
     private const val ACCESS_TOKEN_LIFETIME = 20 * 60 * 1000L
     private const val REFRESH_TOKEN_LIFETIME = 3 * 24 * 60 * 60 * 1000L

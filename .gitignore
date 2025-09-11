@@ -1,5 +1,5 @@
 old_readme.md
-.env
+../.env
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
